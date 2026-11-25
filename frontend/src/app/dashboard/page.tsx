@@ -14,14 +14,30 @@ import {
   Heart,
   MessageSquare,
   Settings,
+  Cpu,
+  Network,
+  Layers,
+  Shield,
+  Rocket,
+  Code,
+  Database,
+  Cloud,
+  TrendingUp,
+  Activity,
+  AlertCircle,
 } from 'lucide-react';
 import DashboardNav from '@/components/DashboardNav';
+import CyberCard from '@/components/CyberCard';
+import HolographicNode from '@/components/HolographicNode';
+import AnalyticsPanel from '@/components/AnalyticsPanel';
+import NetworkViz from '@/components/NetworkViz';
 import toast from 'react-hot-toast';
 
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [networkNodes, setNetworkNodes] = useState<any[]>([]);
 
   useEffect(() => {
     const checkAuth = () => {
@@ -36,6 +52,15 @@ export default function DashboardPage() {
       try {
         const parsedUser = JSON.parse(userData);
         setUser(parsedUser);
+
+        // Generate network nodes
+        setNetworkNodes([
+          { id: '1', label: 'Core', x: 300, y: 200, size: 8, color: 'rgba(0, 212, 255, 1)' },
+          { id: '2', label: 'API', x: 150, y: 100, size: 6, color: 'rgba(168, 85, 247, 1)' },
+          { id: '3', label: 'DB', x: 450, y: 100, size: 6, color: 'rgba(0, 255, 204, 1)' },
+          { id: '4', label: 'Cache', x: 100, y: 300, size: 5, color: 'rgba(255, 165, 0, 1)' },
+          { id: '5', label: 'Queue', x: 500, y: 300, size: 5, color: 'rgba(236, 72, 153, 1)' },
+        ]);
       } catch (e) {
         router.push('/auth/login');
       }
@@ -48,21 +73,44 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-cyber flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin mb-4">
-            <Sparkles className="w-12 h-12 text-cyber-blue mx-auto" />
-          </div>
-          <p className="text-gray-400">Loading your dashboard...</p>
-        </div>
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+          className="text-center"
+        >
+          <div className="w-16 h-16 border-4 border-cyan-500/20 border-t-cyan-500 rounded-full mx-auto mb-4" />
+          <p className="text-cyan-400 font-mono">Initializing Neural Network...</p>
+        </motion.div>
       </div>
     );
   }
 
+  const categoryNodes = [
+    { icon: <Code className="w-full h-full" />, title: 'Developer Tools', color: 'cyan' },
+    { icon: <Cpu className="w-full h-full" />, title: 'AI Models', color: 'purple' },
+    { icon: <Database className="w-full h-full" />, title: 'Databases', color: 'teal' },
+    { icon: <Cloud className="w-full h-full" />, title: 'DevOps', color: 'orange' },
+    { icon: <Shield className="w-full h-full" />, title: 'Security', color: 'cyan' },
+    { icon: <Network className="w-full h-full" />, title: 'Networking', color: 'purple' },
+  ];
+
+  const analyticsData = [
+    { label: 'CPU Usage', value: 68 },
+    { label: 'Memory', value: 52 },
+    { label: 'Disk I/O', value: 71 },
+    { label: 'Network', value: 45 },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-cyber">
+    <div className="min-h-screen bg-gradient-cyber relative">
+      {/* Background effects */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+      </div>
+
       <DashboardNav user={user} />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         {/* Welcome Section */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
@@ -72,14 +120,30 @@ export default function DashboardPage() {
         >
           <div className="flex justify-between items-start mb-8">
             <div>
-              <h1 className="text-4xl font-bold mb-2">
-                Welcome back, <span className="bg-gradient-text bg-clip-text text-transparent">{user?.firstName || user?.username}</span>
-              </h1>
-              <p className="text-gray-400">Here's what's happening in your AI ecosystem today</p>
+              <motion.h1
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-5xl font-bold mb-2"
+              >
+                Welcome,{' '}
+                <span className="bg-gradient-text bg-clip-text text-transparent">
+                  {user?.firstName || user?.username}
+                </span>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="text-cyan-400 font-mono text-sm"
+              >
+                &gt; Neural Network Synchronized | System Status: OPTIMAL
+              </motion.p>
             </div>
             <motion.button
               whileHover={{ scale: 1.05 }}
-              className="px-6 py-3 bg-gradient-accent text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-cyber-blue/50 flex items-center gap-2"
+              whileTap={{ scale: 0.95 }}
+              className="px-6 py-3 bg-gradient-tech text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 flex items-center gap-2"
             >
               <Plus className="w-5 h-5" />
               New Project
@@ -87,154 +151,252 @@ export default function DashboardPage() {
           </div>
         </motion.section>
 
-        {/* Stats Grid */}
+        {/* System Status Cards */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="grid md:grid-cols-4 gap-6 mb-12"
+          className="grid md:grid-cols-4 gap-4 mb-12"
         >
           {[
-            { label: 'Projects', value: '0', icon: Sparkles, color: 'cyber-blue' },
-            { label: 'AI Models', value: '0', icon: Zap, color: 'cyber-violet' },
-            { label: 'Conversations', value: '0', icon: MessageSquare, color: 'cyber-pink' },
-            { label: 'Favorites', value: '0', icon: Heart, color: 'cyan-400' },
+            { label: 'Projects', value: '0', icon: Sparkles, color: 'cyan' },
+            { label: 'AI Models', value: '0', icon: Zap, color: 'purple' },
+            { label: 'Conversations', value: '0', icon: MessageSquare, color: 'teal' },
+            { label: 'Integrations', value: '0', icon: Network, color: 'orange' },
           ].map((stat, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="p-6 rounded-lg border border-navy-700/50 bg-navy-800/30 backdrop-blur-sm"
+              className="relative group"
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-400 text-sm">{stat.label}</p>
-                  <p className="text-3xl font-bold mt-2">{stat.value}</p>
+              <CyberCard
+                glow={true}
+                glowColor={stat.color as any}
+                delay={i * 0.05}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-400 text-sm font-mono">{stat.label}</p>
+                    <p className="text-3xl font-bold text-cyan-300 mt-2">{stat.value}</p>
+                  </div>
+                  <stat.icon className="w-8 h-8 text-cyan-400 opacity-50" />
                 </div>
-                <stat.icon className="w-8 h-8 text-cyan-400 opacity-50" />
-              </div>
+              </CyberCard>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Workspace */}
-          <motion.section
+        {/* Main Dashboard Grid */}
+        <div className="grid lg:grid-cols-3 gap-8 mb-12">
+          {/* Left: Network Visualization */}
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
             className="lg:col-span-2"
           >
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold mb-4">AI Workspace</h2>
-              <div className="p-6 rounded-lg border border-navy-700/50 bg-navy-800/30 backdrop-blur-sm">
-                <div className="mb-6">
-                  <label className="block text-sm font-medium mb-2">Start a conversation</label>
-                  <div className="relative">
-                    <Search className="absolute left-3 top-3.5 w-5 h-5 text-gray-500" />
-                    <input
-                      type="text"
-                      placeholder="Ask anything or describe your task..."
-                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-navy-700/50 bg-navy-800/50 focus:border-cyber-blue focus:outline-none transition placeholder-gray-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  {[
-                    'Generate an image for my project',
-                    'Explain how to use Docker',
-                    'Create a code snippet',
-                    'Research latest AI trends',
-                  ].map((prompt, i) => (
-                    <motion.button
-                      key={i}
-                      whileHover={{ x: 5 }}
-                      className="w-full text-left p-4 rounded-lg border border-navy-700/30 hover:border-cyber-blue/50 hover:bg-navy-800/50 transition text-sm text-gray-300"
-                    >
-                      <ArrowRight className="w-4 h-4 inline mr-2 text-cyber-blue" />
-                      {prompt}
-                    </motion.button>
-                  ))}
-                </div>
+            <CyberCard glow={true} glowColor="cyan">
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-cyan-300 flex items-center gap-2">
+                  <Network className="w-5 h-5" />
+                  System Architecture
+                </h2>
               </div>
-            </div>
-
-            {/* Recent Projects */}
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Recent Projects</h2>
-              <div className="p-6 rounded-lg border border-navy-700/50 bg-navy-800/30 backdrop-blur-sm text-center py-12">
-                <Sparkles className="w-12 h-12 mx-auto text-gray-500 mb-4 opacity-50" />
-                <p className="text-gray-400">No projects yet. Create your first project to get started!</p>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  className="mt-4 px-4 py-2 bg-gradient-accent text-white rounded-lg font-semibold"
-                >
-                  Create Project
-                </motion.button>
+              <div className="h-80 w-full">
+                <NetworkViz nodes={networkNodes} title="Network Topology" />
               </div>
-            </div>
-          </motion.section>
+            </CyberCard>
+          </motion.div>
 
-          {/* Sidebar */}
-          <motion.aside
+          {/* Right: Quick Stats */}
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
             className="space-y-6"
           >
-            {/* Quick Access */}
-            <div>
-              <h3 className="text-lg font-bold mb-4">Quick Access</h3>
-              <div className="space-y-2">
+            {/* Performance Overview */}
+            <CyberCard glow={true} glowColor="purple">
+              <h3 className="text-lg font-bold text-purple-400 mb-4 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5" />
+                Performance
+              </h3>
+              <div className="space-y-3">
                 {[
-                  { label: 'Explore Tools', icon: Zap },
-                  { label: 'Discover Models', icon: BarChart3 },
-                  { label: 'View Integrations', icon: Settings },
-                  { label: 'Documentation', icon: MessageSquare },
-                ].map((item, i) => (
-                  <motion.button
-                    key={i}
-                    whileHover={{ x: 5 }}
-                    className="w-full flex items-center gap-3 p-3 rounded-lg border border-navy-700/30 hover:border-cyber-blue/50 hover:bg-navy-800/50 transition text-left"
-                  >
-                    <item.icon className="w-5 h-5 text-cyber-blue" />
-                    <span className="text-sm">{item.label}</span>
-                  </motion.button>
+                  { label: 'Uptime', value: '99.9%', color: 'green' },
+                  { label: 'Latency', value: '12ms', color: 'blue' },
+                  { label: 'Requests', value: '2.4K/s', color: 'cyan' },
+                ].map((stat, i) => (
+                  <div key={i} className="flex justify-between items-center">
+                    <span className="text-gray-400 text-sm">{stat.label}</span>
+                    <span className={`font-bold text-${stat.color}-400`}>{stat.value}</span>
+                  </div>
                 ))}
               </div>
-            </div>
+            </CyberCard>
 
-            {/* Profile Card */}
-            <div className="p-4 rounded-lg border border-navy-700/50 bg-gradient-to-br from-navy-800/50 to-navy-900/50 backdrop-blur-sm">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-accent" />
-                <div className="flex-1">
-                  <p className="font-semibold text-sm">{user?.username}</p>
-                  <p className="text-xs text-gray-400">{user?.email}</p>
-                </div>
+            {/* System Health */}
+            <CyberCard glow={true} glowColor="teal">
+              <h3 className="text-lg font-bold text-teal-400 mb-4 flex items-center gap-2">
+                <Activity className="w-5 h-5" />
+                System Health
+              </h3>
+              <div className="space-y-3">
+                {[
+                  { label: 'All Systems', status: 'OPERATIONAL' },
+                  { label: 'Database', status: 'HEALTHY' },
+                  { label: 'Cache', status: 'OPTIMAL' },
+                ].map((item, i) => (
+                  <div key={i} className="flex justify-between items-center">
+                    <span className="text-gray-400 text-sm">{item.label}</span>
+                    <span className="text-xs font-bold text-green-400">●{item.status}</span>
+                  </div>
+                ))}
               </div>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                className="w-full px-3 py-2 rounded-lg border border-navy-700/50 hover:border-cyber-blue/50 hover:bg-navy-800/50 transition text-sm font-medium"
+            </CyberCard>
+          </motion.div>
+        </div>
+
+        {/* Category Nodes */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="mb-12"
+        >
+          <h2 className="text-2xl font-bold text-cyan-300 mb-6 flex items-center gap-2">
+            <Sparkles className="w-6 h-6" />
+            Ecosystem Nodes
+          </h2>
+          <div className="flex flex-wrap justify-center gap-8">
+            {categoryNodes.map((node, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 + i * 0.1 }}
               >
-                Edit Profile
-              </motion.button>
+                <HolographicNode
+                  icon={node.icon}
+                  title={node.title}
+                  color={node.color as any}
+                  size="md"
+                />
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Analytics Panels */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="mb-12"
+        >
+          <h2 className="text-2xl font-bold text-cyan-300 mb-6 flex items-center gap-2">
+            <BarChart3 className="w-6 h-6" />
+            System Metrics
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <AnalyticsPanel
+              title="Resource Allocation"
+              data={analyticsData}
+              color="cyan"
+              icon={<Cpu className="w-5 h-5" />}
+            />
+            <AnalyticsPanel
+              title="API Performance"
+              data={[
+                { label: 'Response Time', value: 85 },
+                { label: 'Throughput', value: 72 },
+                { label: 'Availability', value: 99 },
+                { label: 'Cache Hit', value: 88 },
+              ]}
+              color="purple"
+              icon={<Network className="w-5 h-5" />}
+            />
+            <AnalyticsPanel
+              title="Infrastructure"
+              data={[
+                { label: 'Storage', value: 65 },
+                { label: 'Bandwidth', value: 48 },
+                { label: 'Connections', value: 92 },
+                { label: 'Processes', value: 55 },
+              ]}
+              color="teal"
+              icon={<Database className="w-5 h-5" />}
+            />
+          </div>
+        </motion.section>
+
+        {/* AI Workspace Section */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mb-12"
+        >
+          <CyberCard glow={true} glowColor="cyan">
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-cyan-300 flex items-center gap-2 mb-2">
+                <Sparkles className="w-6 h-6" />
+                AI Workspace
+              </h2>
+              <p className="text-gray-400 text-sm font-mono">&gt; Neural Interface Ready</p>
             </div>
 
-            {/* Get Started */}
-            <div className="p-4 rounded-lg border border-cyber-blue/30 bg-cyber-blue/5 backdrop-blur-sm">
-              <h4 className="font-bold mb-2">Getting Started</h4>
-              <ul className="text-sm text-gray-400 space-y-2">
-                <li>✓ Set up your first integration</li>
-                <li>✓ Create your first project</li>
-                <li>✓ Explore AI models</li>
-              </ul>
+            <div className="grid md:grid-cols-3 gap-4">
+              {[
+                { title: 'Model Selection', icon: <Cpu className="w-5 h-5" />, desc: 'Choose AI Provider' },
+                { title: 'Task Configuration', icon: <Settings className="w-5 h-5" />, desc: 'Configure Parameters' },
+                { title: 'Execute Workflow', icon: <Rocket className="w-5 h-5" />, desc: 'Run Operations' },
+              ].map((item, i) => (
+                <motion.button
+                  key={i}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="p-4 rounded-lg border border-cyan-500/30 bg-slate-900/30 hover:bg-slate-800/50 transition-all group"
+                >
+                  <div className="text-cyan-400 group-hover:text-cyan-300 mb-2 flex justify-center">
+                    {item.icon}
+                  </div>
+                  <h4 className="font-semibold text-sm mb-1">{item.title}</h4>
+                  <p className="text-xs text-gray-400">{item.desc}</p>
+                </motion.button>
+              ))}
             </div>
-          </motion.aside>
-        </div>
+          </CyberCard>
+        </motion.section>
+
+        {/* Get Started Guide */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <CyberCard glow={true} glowColor="purple">
+            <h3 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+              <AlertCircle className="w-5 h-5" />
+              Getting Started
+            </h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <div className="space-y-2">
+                <p className="text-cyan-300 font-mono">Step 1</p>
+                <p className="text-gray-400">Set up your AI integrations and configure API credentials securely.</p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-cyan-300 font-mono">Step 2</p>
+                <p className="text-gray-400">Create your first project and explore available AI models.</p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-cyan-300 font-mono">Step 3</p>
+                <p className="text-gray-400">Execute workflows and analyze results in real-time.</p>
+              </div>
+            </div>
+          </CyberCard>
+        </motion.section>
       </main>
     </div>
   );
