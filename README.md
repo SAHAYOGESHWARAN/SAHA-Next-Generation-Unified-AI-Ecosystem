@@ -1,7 +1,7 @@
 ﻿# SAHA NEXUS AI - Full-Stack AI & Technology Ecosystem
 
 A next-generation, professional, open-source platform that brings together the world's most powerful AI tools, open-source models, developer utilities, and automation systems under one unified ecosystem.
-
+![future](sahs.png)
 ## Project Structure
 
 - **frontend/** - Next.js, React, TypeScript, Tailwind CSS
