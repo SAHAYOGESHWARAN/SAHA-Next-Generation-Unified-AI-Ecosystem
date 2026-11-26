@@ -27,6 +27,33 @@ export default function SignupPage() {
     e.preventDefault();
     setError('');
 
+    // Validation
+    if (!formData.name.trim()) {
+      setError('Please enter your name');
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      setError('Please enter your email');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+
+    if (!formData.password) {
+      setError('Please enter a password');
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
@@ -45,12 +72,18 @@ export default function SignupPage() {
         }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        router.push('/auth/verify-email');
+        // Success - redirect to dashboard
+        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('token', 'mock-token');
+        router.push('/dashboard');
       } else {
-        setError('Signup failed. Please try again.');
+        setError(data.error || 'Signup failed. Please try again.');
       }
     } catch (err) {
+      console.error('Signup error:', err);
       setError('An error occurred. Please try again.');
     } finally {
       setLoading(false);

@@ -26,20 +26,38 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
 
+    // Validation
+    if (!formData.email.trim()) {
+      setError('Please enter your email');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.password) {
+      setError('Please enter your password');
+      setLoading(false);
+      return;
+    }
+
     try {
-      // Simulated auth - replace with actual API call
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
+        // Success - store user and redirect
+        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('token', data.token);
         router.push('/dashboard');
       } else {
-        setError('Invalid credentials');
+        setError(data.error || 'Invalid credentials');
       }
     } catch (err) {
+      console.error('Login error:', err);
       setError('Login failed. Please try again.');
     } finally {
       setLoading(false);
