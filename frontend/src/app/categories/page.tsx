@@ -4,7 +4,16 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 
-const categories = [
+interface Category {
+  id: number;
+  name: string;
+  description: string;
+  icon: string;
+  tools: string[];
+  color: string;
+}
+
+const categories: Category[] = [
   {
     id: 1,
     name: 'AI Image & Design',
