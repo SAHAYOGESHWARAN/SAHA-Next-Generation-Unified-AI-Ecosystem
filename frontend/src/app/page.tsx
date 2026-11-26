@@ -3,49 +3,15 @@
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Navigation from '@/components/Navigation';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-cyber overflow-hidden">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-navy-950/50 border-b border-navy-700/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-8 h-8 text-cyber-blue" />
-            <span className="text-xl font-bold bg-gradient-text bg-clip-text text-transparent">
-              SAHA NEXUS AI
-            </span>
-          </div>
-          <div className="hidden md:flex gap-8">
-            <Link href="#features" className="text-gray-300 hover:text-cyber-blue transition">
-              Features
-            </Link>
-            <Link href="#categories" className="text-gray-300 hover:text-cyber-blue transition">
-              Categories
-            </Link>
-            <Link href="#" className="text-gray-300 hover:text-cyber-blue transition">
-              Docs
-            </Link>
-          </div>
-          <div className="flex gap-4">
-            <Link
-              href="/auth/login"
-              className="px-6 py-2 text-gray-300 border border-cyber-blue/30 rounded-lg hover:border-cyber-blue transition"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/auth/signup"
-              className="px-6 py-2 bg-gradient-accent text-white rounded-lg hover:shadow-lg hover:shadow-cyber-blue/30 transition"
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
+      <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -53,48 +19,36 @@ export default function Home() {
           className="text-center"
         >
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span className="bg-gradient-text bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               The Ultimate AI & Technology
             </span>
             <br />
-            <span className="text-gray-100">Ecosystem</span>
+            <span className="text-white">Ecosystem</span>
           </h1>
-          <p className="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-400 mb-8 max-w-3xl mx-auto">
             Discover, integrate, and manage AI tools, open-source models, developer utilities, and cutting-edge technologies
             in one unified, intelligent platform. Build faster. Innovate smarter.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/dashboard"
-              className="px-8 py-4 bg-gradient-accent text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-cyber-blue/50 transition flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-black font-bold rounded-lg transition duration-300 font-mono uppercase flex items-center justify-center gap-2"
             >
               Enter Dashboard <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
-              href="/explore"
-              className="px-8 py-4 border border-cyber-blue text-cyber-blue rounded-lg font-semibold hover:bg-cyber-blue/10 transition"
+              href="/categories"
+              className="px-8 py-4 border border-cyan-500 text-cyan-400 rounded-lg font-bold hover:bg-cyan-500/10 transition duration-300 font-mono uppercase"
             >
               Explore Tools
             </Link>
           </div>
         </motion.div>
-
-        {/* Animated Grid Background */}
-        <div className="absolute inset-0 opacity-10 z-0">
-          <svg className="w-full h-full">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" className="text-cyan-400" />
-          </svg>
-        </div>
       </section>
 
       {/* Features Grid */}
-      <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-text bg-clip-text text-transparent">
+      <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
           Powerful Features
         </h2>
         <div className="grid md:grid-cols-3 gap-6">
@@ -129,18 +83,21 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="p-6 rounded-lg border border-navy-700/50 bg-navy-800/30 backdrop-blur-sm hover:border-cyber-blue/50 transition"
+              className="relative group"
             >
-              <h3 className="text-xl font-bold mb-3 text-cyber-blue">{feature.title}</h3>
-              <p className="text-gray-400">{feature.description}</p>
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg blur opacity-20 group-hover:opacity-40 transition"></div>
+              <div className="relative p-6 rounded-lg border border-slate-700/50 bg-slate-800/50 backdrop-blur hover:border-slate-600/70 transition">
+                <h3 className="text-xl font-bold mb-3 text-cyan-400 font-mono">{feature.title}</h3>
+                <p className="text-slate-400">{feature.description}</p>
+              </div>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Categories Preview */}
-      <section id="categories" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-text bg-clip-text text-transparent">
+      <section id="categories" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
           Explore 18 Categories
         </h2>
         <div className="grid md:grid-cols-4 gap-4">
@@ -167,35 +124,41 @@ export default function Home() {
             <motion.div
               key={i}
               whileHover={{ scale: 1.05 }}
-              className="p-4 rounded-lg border border-navy-700/30 bg-navy-800/20 backdrop-blur-sm hover:border-cyber-blue transition cursor-pointer text-center"
+              className="relative group cursor-pointer"
             >
-              <p className="font-semibold text-gray-100">{cat}</p>
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-600 to-slate-700 rounded-lg blur opacity-10 group-hover:opacity-30 transition"></div>
+              <div className="relative p-4 rounded-lg border border-slate-700/30 bg-slate-800/20 backdrop-blur hover:border-cyan-500/30 transition text-center">
+                <p className="font-semibold text-slate-100 font-mono text-sm">{cat}</p>
+              </div>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center relative z-10">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          className="p-12 rounded-lg bg-gradient-to-r from-cyber-blue/10 to-cyber-violet/10 border border-cyber-blue/30"
+          className="relative group"
         >
-          <h2 className="text-3xl font-bold mb-4">Ready to explore?</h2>
-          <p className="text-gray-400 mb-8">Join thousands of developers building with SAHA NEXUS AI</p>
-          <Link
-            href="/auth/signup"
-            className="px-8 py-4 bg-gradient-accent text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-cyber-blue/50 transition inline-flex items-center gap-2"
-          >
-            Create Free Account <ArrowRight className="w-5 h-5" />
-          </Link>
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-lg blur opacity-30 group-hover:opacity-50 transition"></div>
+          <div className="relative p-12 rounded-lg bg-slate-900/80 backdrop-blur border border-slate-700/50">
+            <h2 className="text-3xl font-bold mb-4 text-white">Ready to explore?</h2>
+            <p className="text-slate-400 mb-8">Join thousands of developers building with SAHA NEXUS AI</p>
+            <Link
+              href="/auth/signup"
+              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white rounded-lg font-bold transition duration-300 inline-flex items-center gap-2 font-mono uppercase"
+            >
+              Create Free Account <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
         </motion.div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-navy-700/30 py-8 px-4 sm:px-6 lg:px-8 text-center text-gray-400">
-        <p>&copy; 2024 SAHA NEXUS AI. Open-source ecosystem for AI and technology.</p>
+      <footer className="border-t border-slate-700/30 py-8 px-4 sm:px-6 lg:px-8 text-center text-slate-400 relative z-10">
+        <p className="font-mono">&copy; 2024 SAHA NEXUS AI. Open-source ecosystem for AI and technology.</p>
       </footer>
     </main>
   );
