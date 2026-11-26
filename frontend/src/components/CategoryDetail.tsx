@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Search, Filter, Star } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Search, Star } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { CATEGORIES } from '@/data/categories';
