@@ -7,16 +7,11 @@ import {
   Sparkles,
   BarChart3,
   Zap,
-  Users,
-  ArrowRight,
-  Search,
   Plus,
-  Heart,
   MessageSquare,
   Settings,
   Cpu,
   Network,
-  Layers,
   Shield,
   Rocket,
   Code,
@@ -31,7 +26,6 @@ import CyberCard from '@/components/CyberCard';
 import HolographicNode from '@/components/HolographicNode';
 import AnalyticsPanel from '@/components/AnalyticsPanel';
 import NetworkViz from '@/components/NetworkViz';
-import toast from 'react-hot-toast';
 
 export default function DashboardPage() {
   const router = useRouter();

@@ -6,12 +6,8 @@ import {
   Send,
   Plus,
   Settings,
-  Copy,
-  Download,
   Trash2,
-  Sparkles,
   Cpu,
-  Zap,
 } from 'lucide-react';
 import DashboardNav from '@/components/DashboardNav';
 import CyberCard from '@/components/CyberCard';
@@ -24,7 +20,7 @@ const models = [
 ];
 
 export default function WorkspacePage() {
-  const [user, setUser] = useState<any>(null);
+  const [user] = useState<any>(null);
   const [selectedModel, setSelectedModel] = useState('GPT-4');
   const [messages, setMessages] = useState<any[]>([
     { role: 'assistant', content: 'Welcome to the AI Workspace. I\'m ready to assist you with any task.' },
@@ -94,11 +90,10 @@ export default function WorkspacePage() {
                     key={i}
                     onClick={() => setSelectedModel(model.name)}
                     whileHover={{ scale: 1.02 }}
-                    className={`w-full text-left p-3 rounded-lg transition-all ${
-                      selectedModel === model.name
-                        ? 'bg-purple-500/30 border border-purple-400'
-                        : 'border border-purple-500/20 hover:border-purple-400/50'
-                    }`}
+                    className={`w-full text-left p-3 rounded-lg transition-all ${selectedModel === model.name
+                      ? 'bg-purple-500/30 border border-purple-400'
+                      : 'border border-purple-500/20 hover:border-purple-400/50'
+                      }`}
                   >
                     <div className="font-semibold text-sm">{model.name}</div>
                     <div className="text-xs text-gray-400">{model.provider}</div>
@@ -176,11 +171,10 @@ export default function WorkspacePage() {
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-md px-4 py-3 rounded-lg ${
-                      msg.role === 'user'
-                        ? 'bg-gradient-tech text-white'
-                        : 'bg-slate-800/50 border border-cyan-500/20 text-gray-200'
-                    }`}
+                    className={`max-w-md px-4 py-3 rounded-lg ${msg.role === 'user'
+                      ? 'bg-gradient-tech text-white'
+                      : 'bg-slate-800/50 border border-cyan-500/20 text-gray-200'
+                      }`}
                   >
                     {msg.content}
                   </div>

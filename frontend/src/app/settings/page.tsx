@@ -4,23 +4,18 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   Save,
-  Lock,
-  Bell,
   User,
   Key,
   Shield,
   LogOut,
   Copy,
-  Eye,
-  EyeOff,
+  AlertCircle,
 } from 'lucide-react';
 import DashboardNav from '@/components/DashboardNav';
 import CyberCard from '@/components/CyberCard';
-import toast from 'react-hot-toast';
 
 export default function SettingsPage() {
-  const [user, setUser] = useState<any>(null);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword] = useState(false);
   const [credentials, setCredentials] = useState({
     openrouter: '',
     huggingface: '',
@@ -28,13 +23,11 @@ export default function SettingsPage() {
   });
 
   const handleSaveProfile = () => {
-    toast.success('Profile updated successfully');
+    console.log('Profile updated');
   };
 
   const handleAddCredential = (provider: string) => {
-    if (credentials[provider as keyof typeof credentials]) {
-      toast.success(`${provider} credentials saved securely`);
-    }
+    console.log(`${provider} credentials saved`);
   };
 
   const handleLogout = () => {
@@ -49,7 +42,7 @@ export default function SettingsPage() {
         <div className="absolute inset-0 bg-grid-pattern opacity-5" />
       </div>
 
-      <DashboardNav user={user} />
+      <DashboardNav user={undefined} />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         {/* Header */}
@@ -313,6 +306,4 @@ export default function SettingsPage() {
   );
 }
 
-function AlertCircle(props: any) {
-  return <Shield {...props} />;
-}
+

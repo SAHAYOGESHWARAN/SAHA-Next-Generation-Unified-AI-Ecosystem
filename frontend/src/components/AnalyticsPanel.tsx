@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BarChart3, TrendingUp, Activity } from 'lucide-react';
+import { BarChart3, TrendingUp } from 'lucide-react';
 
 interface DataPoint {
   value: number;

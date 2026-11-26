@@ -129,13 +129,6 @@ const features = [
 
 export default function FeaturesPage() {
   const [selectedFeature, setSelectedFeature] = useState(1);
-  const [expandedFeatures, setExpandedFeatures] = useState<number[]>([]);
-
-  const toggleExpanded = (id: number) => {
-    setExpandedFeatures((prev) =>
-      prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
-    );
-  };
 
   const selectedFeatureData = features.find((f) => f.id === selectedFeature);
 
@@ -253,7 +246,6 @@ export default function FeaturesPage() {
               <div
                 key={idx}
                 className="relative group cursor-pointer"
-                onClick={() => toggleExpanded(idx)}
               >
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-600 to-slate-700 rounded-lg blur opacity-20 group-hover:opacity-40 transition"></div>
                 <div className="relative bg-slate-800/50 backdrop-blur border border-slate-700/50 rounded-lg p-4 hover:border-slate-600/70 transition h-24 flex flex-col justify-center items-center text-center">

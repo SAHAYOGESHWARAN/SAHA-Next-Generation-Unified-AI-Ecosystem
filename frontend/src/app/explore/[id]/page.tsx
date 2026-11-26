@@ -122,7 +122,7 @@ export default function CategoryDetailPage({ params }: PageProps) {
         <Navigation />
         <div className="relative z-10 max-w-7xl mx-auto text-center mt-20">
           <h1 className="text-4xl font-bold text-white mb-4">Category Not Found</h1>
-          <p className="text-slate-400 mb-8">The category you're looking for doesn't exist.</p>
+          <p className="text-slate-400 mb-8">The category you&apos;re looking for doesn&apos;t exist.</p>
           <Link
             href="/categories"
             className="inline-block px-8 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-lg font-mono hover:shadow-lg transition"
