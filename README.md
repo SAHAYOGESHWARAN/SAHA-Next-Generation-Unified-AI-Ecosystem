@@ -351,7 +351,7 @@ Built with:
 - NestJS framework
 
 ---
-
+**live link :** https://saha-nexus-ai-46.vercel.app/
 **Version:** 2.0.0  
-**Last Updated:** November 26, 2024  
+**Last Updated:** November 26, 2026
 **Status:** Production Ready ✅
