@@ -1,12 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Zap, ArrowRight, TrendingUp, Rocket, Shield, Zap as Lightning } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ImprovedHome() {
-  const [activeTab, setActiveTab] = useState('features');
 
   const containerVariants = {
     hidden: { opacity: 0 },

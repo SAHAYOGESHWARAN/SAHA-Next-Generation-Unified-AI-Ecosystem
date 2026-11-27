@@ -30,7 +30,7 @@ export default function TermsPage() {
           <section className="text-slate-300">
             <h2 className="text-2xl font-bold text-cyan-400 mb-4">3. Disclaimer</h2>
             <p>
-              The materials on SAHA NEXUS AI are provided on an 'as is' basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties.
+              The materials on SAHA NEXUS AI are provided on an &apos;as is&apos; basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties.
             </p>
           </section>
 

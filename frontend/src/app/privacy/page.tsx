@@ -16,7 +16,7 @@ export default function PrivacyPage() {
           <section className="text-slate-300">
             <h2 className="text-2xl font-bold text-cyan-400 mb-4">1. Introduction</h2>
             <p>
-              SAHA NEXUS AI ("we" or "us" or "our") operates the website. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service.
+              SAHA NEXUS AI (&quot;we&quot; or &quot;us&quot; or &quot;our&quot;) operates the website. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service.
             </p>
           </section>
 
