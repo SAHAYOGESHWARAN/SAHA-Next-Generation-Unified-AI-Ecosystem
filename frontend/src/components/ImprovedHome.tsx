@@ -1,42 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Zap, Radio } from 'lucide-react';
+import { Sparkles, Zap, ArrowRight, TrendingUp, Rocket, Shield, Zap as Lightning } from 'lucide-react';
 import Link from 'next/link';
-import AdvancedEyeTracker from './AdvancedEyeTracker';
-import AdvancedVoiceControl from './AdvancedVoiceControl';
-import HologramEffect from './HologramEffect';
-import AdvancedChatbot from './AdvancedChatbot';
 
 export default function ImprovedHome() {
-  const [isHologramActive, setIsHologramActive] = useState(true);
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [isVoiceEnabled, setIsVoiceEnabled] = useState(false);
-  const [showEyes, setShowEyes] = useState(true);
-  const [commandFeedback, setCommandFeedback] = useState('');
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setCommandFeedback('');
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [commandFeedback]);
-
-  const handleVoiceCommand = (command: string) => {
-    const lowerCommand = command.toLowerCase();
-    setCommandFeedback(command);
-
-    if (lowerCommand.includes('open') || lowerCommand.includes('dashboard')) {
-      setTimeout(() => window.location.href = '/dashboard', 1000);
-    } else if (lowerCommand.includes('explore') || lowerCommand.includes('categor')) {
-      setTimeout(() => window.location.href = '/categories', 1000);
-    } else if (lowerCommand.includes('workspace')) {
-      setTimeout(() => window.location.href = '/workspace', 1000);
-    } else if (lowerCommand.includes('features')) {
-      setTimeout(() => window.location.href = '/features', 1000);
-    }
-  };
+  const [activeTab, setActiveTab] = useState('features');
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -58,13 +28,49 @@ export default function ImprovedHome() {
     },
   };
 
-  return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden relative">
-      {/* Hologram background effect */}
-      <HologramEffect isActive={isHologramActive} />
+  const stats = [
+    { label: 'AI Categories', value: '18' },
+    { label: 'Tools Available', value: '108' },
+    { label: 'Use Cases', value: '108+' },
+    { label: 'Global Users', value: '1M+' },
+  ];
 
+  const features = [
+    {
+      icon: <Rocket className="w-8 h-8" />,
+      title: 'Advanced AI Integration',
+      description: 'Seamless integration with cutting-edge AI models and APIs for maximum performance.',
+    },
+    {
+      icon: <Shield className="w-8 h-8" />,
+      title: 'Enterprise Security',
+      description: 'Bank-level security with encryption, authentication, and compliance standards.',
+    },
+    {
+      icon: <TrendingUp className="w-8 h-8" />,
+      title: 'Real-time Analytics',
+      description: 'Monitor performance metrics and insights with advanced dashboards.',
+    },
+    {
+      icon: <Lightning className="w-8 h-8" />,
+      title: 'Lightning Fast',
+      description: 'Optimized performance with 60fps animations and sub-100ms response times.',
+    },
+  ];
+
+  const categories = [
+    { icon: '🎨', name: 'AI Image & Design', tools: 6 },
+    { icon: '🎬', name: 'AI Video Generation', tools: 6 },
+    { icon: '🤖', name: 'AI Agents', tools: 6 },
+    { icon: '📝', name: 'LLM Tools', tools: 6 },
+    { icon: '⚙️', name: 'Developer Tools', tools: 6 },
+    { icon: '🌐', name: 'Web & Frontend', tools: 6 },
+  ];
+
+  return (
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
       {/* Animated background grid */}
-      <div className="fixed inset-0 pointer-events-none opacity-20">
+      <div className="fixed inset-0 pointer-events-none opacity-10">
         <div
           className="absolute inset-0"
           style={{
@@ -73,27 +79,6 @@ export default function ImprovedHome() {
           }}
         />
       </div>
-
-      {/* Eye Tracker */}
-      <AdvancedEyeTracker isVisible={showEyes} />
-
-      {/* Voice Control */}
-      <AdvancedVoiceControl isEnabled={isVoiceEnabled} onCommand={handleVoiceCommand} />
-
-      {/* Advanced Chatbot */}
-      <AdvancedChatbot isOpen={isChatOpen} onToggle={() => setIsChatOpen(!isChatOpen)} />
-
-      {/* Command Feedback */}
-      {commandFeedback && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="fixed top-20 left-1/2 transform -translate-x-1/2 z-40 px-6 py-3 rounded-lg bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur border border-cyan-500/50 text-cyan-300 font-mono text-sm shadow-lg shadow-cyan-500/30"
-        >
-          🎤 Recognized: &quot;{commandFeedback}&quot;
-        </motion.div>
-      )}
 
       {/* Main Content */}
       <motion.div
@@ -118,171 +103,109 @@ export default function ImprovedHome() {
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black mb-6 leading-tight">
             <motion.span
               className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent inline-block"
-              animate={{ backgroundPosition: '200% center' }}
+              animate={{
+                backgroundPosition: ['0%', '100%'],
+              }}
               transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-              style={{ backgroundSize: '200% 100%' }}
             >
-              SAHA NEXUS
+              SAHA NEXUS AI
             </motion.span>
-            <br />
-            <span className="text-white">Advanced AI Ecosystem</span>
           </h1>
 
-          <motion.p
-            variants={itemVariants}
-            className="text-xl sm:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto"
-          >
-            Experience next-generation AI interaction with eye tracking, voice commands in 12+ languages, 3D holograms, and intelligent AI assistance
-          </motion.p>
+          <p className="text-xl sm:text-2xl text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+            The Next-Generation Unified AI Ecosystem. Explore 18 categories, 108+ tools, and unlimited possibilities.
+          </p>
 
-          {/* Control Panel */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap justify-center gap-4 mb-12"
-          >
-            <motion.button
-              onClick={() => setShowEyes(!showEyes)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 rounded-lg bg-gradient-to-r from-cyan-500/20 to-cyan-600/20 border border-cyan-400/50 text-cyan-300 font-mono text-sm hover:border-cyan-300 hover:from-cyan-500/30 hover:to-cyan-600/30 transition font-semibold"
-            >
-              {showEyes ? '👁️ Eyes On' : '👁️ Eyes Off'}
-            </motion.button>
-
-            <motion.button
-              onClick={() => setIsVoiceEnabled(!isVoiceEnabled)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 rounded-lg bg-gradient-to-r from-purple-500/20 to-purple-600/20 border border-purple-400/50 text-purple-300 font-mono text-sm hover:border-purple-300 hover:from-purple-500/30 hover:to-purple-600/30 transition font-semibold"
-            >
-              {isVoiceEnabled ? '🎤 Voice On' : '🎤 Voice Off'}
-            </motion.button>
-
-            <motion.button
-              onClick={() => setIsChatOpen(!isChatOpen)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 rounded-lg bg-gradient-to-r from-pink-500/20 to-pink-600/20 border border-pink-400/50 text-pink-300 font-mono text-sm hover:border-pink-300 hover:from-pink-500/30 hover:to-pink-600/30 transition font-semibold"
-            >
-              💬 Chat AI
-            </motion.button>
-
-            <motion.button
-              onClick={() => setIsHologramActive(!isHologramActive)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 rounded-lg bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 border border-emerald-400/50 text-emerald-300 font-mono text-sm hover:border-emerald-300 hover:from-emerald-500/30 hover:to-emerald-600/30 transition font-semibold"
-            >
-              🌐 Hologram
-            </motion.button>
-          </motion.div>
-
-          {/* Primary CTA */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
-          >
-            <Link
-              href="/dashboard"
-              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-black font-bold rounded-lg transition duration-300 font-mono uppercase flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/50 hover:shadow-lg hover:shadow-cyan-400/70"
-            >
-              <Radio className="w-5 h-5" />
-              Enter Dashboard
-            </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link
               href="/categories"
-              className="px-8 py-4 border-2 border-cyan-500 text-cyan-400 rounded-lg font-bold hover:bg-cyan-500/10 transition duration-300 font-mono uppercase flex items-center justify-center gap-2"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-black font-bold rounded-lg transition transform hover:scale-105"
             >
-              <Sparkles className="w-5 h-5" />
-              Explore Tools
+              <span>Explore Categories</span>
+              <ArrowRight className="w-5 h-5" />
             </Link>
-          </motion.div>
-
-          {/* Features Grid */}
-          <motion.div
-            variants={itemVariants}
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-16 max-w-5xl mx-auto"
-          >
-            {[
-              {
-                icon: '👁️',
-                title: 'Eye Tracking',
-                desc: 'Cursor follows your eyes',
-              },
-              {
-                icon: '🎤',
-                title: 'Voice Commands',
-                desc: 'Control with your voice',
-              },
-              {
-                icon: '🌐',
-                title: '3D Holograms',
-                desc: 'Immersive visuals',
-              },
-              {
-                icon: '💬',
-                title: 'AI Chat',
-                desc: 'Always here to help',
-              },
-            ].map((feature, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ scale: 1.05 }}
-                className="relative group"
-              >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg blur opacity-20 group-hover:opacity-40 transition"></div>
-                <div className="relative p-6 rounded-lg border border-slate-700/50 bg-slate-800/50 backdrop-blur">
-                  <div className="text-4xl mb-3">{feature.icon}</div>
-                  <h3 className="text-cyan-300 font-bold font-mono mb-1 text-sm">{feature.title}</h3>
-                  <p className="text-slate-400 text-xs">{feature.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-slate-800 hover:bg-slate-700 text-cyan-400 font-bold rounded-lg transition border border-cyan-500/30"
+            >
+              <span>View Dashboard</span>
+            </Link>
+          </div>
         </motion.div>
 
-        {/* Hologram workspace preview */}
+        {/* Stats Section */}
         <motion.div
           variants={itemVariants}
-          className="relative mt-20 rounded-lg border-2 border-cyan-500/30 bg-slate-800/20 backdrop-blur p-8 overflow-hidden"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5"></div>
+          {stats.map((stat, i) => (
+            <motion.div
+              key={i}
+              className="p-6 rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-cyan-500/20 hover:border-cyan-500/50 transition"
+              whileHover={{ scale: 1.05 }}
+            >
+              <p className="text-3xl font-bold text-cyan-400 mb-2">{stat.value}</p>
+              <p className="text-slate-400 text-sm">{stat.label}</p>
+            </motion.div>
+          ))}
+        </motion.div>
 
-          <motion.div
-            animate={{
-              y: [0, -10, 0],
-            }}
-            transition={{ duration: 4, repeat: Infinity }}
-            className="relative z-10"
+        {/* Features Section */}
+        <motion.div
+          variants={itemVariants}
+          className="mb-20"
+        >
+          <h2 className="text-4xl font-bold text-white mb-12 text-center">Advanced Features</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                className="p-8 rounded-xl bg-gradient-to-br from-slate-800/30 to-slate-900/30 border border-cyan-500/20 hover:border-cyan-500/50 transition"
+                whileHover={{ y: -5 }}
+              >
+                <div className="text-cyan-400 mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
+                <p className="text-slate-300">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Featured Categories */}
+        <motion.div
+          variants={itemVariants}
+          className="mb-20"
+        >
+          <h2 className="text-4xl font-bold text-white mb-12 text-center">Featured Categories</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {categories.map((cat, i) => (
+              <Link key={i} href="/categories">
+                <motion.div
+                  className="p-8 rounded-xl bg-gradient-to-br from-slate-800/30 to-slate-900/30 border border-cyan-500/20 hover:border-cyan-500/50 transition cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className="text-5xl mb-3">{cat.icon}</div>
+                  <h3 className="text-lg font-bold text-white mb-2">{cat.name}</h3>
+                  <p className="text-cyan-400 text-sm">{cat.tools} tools</p>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Call to Action */}
+        <motion.div
+          variants={itemVariants}
+          className="text-center py-16"
+        >
+          <h2 className="text-4xl font-bold text-white mb-6">Ready to Transform Your AI Experience?</h2>
+          <Link
+            href="/dashboard"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold rounded-lg transition transform hover:scale-105"
           >
-            <div className="text-center">
-              <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                Immersive Workspace
-              </h2>
-              <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
-                Your workspace comes alive with real-time 3D holograms, voice-controlled interfaces, and intelligent AI assistance. Manage 18 AI categories and tools seamlessly.
-              </p>
-
-              <div className="grid md:grid-cols-3 gap-4">
-                {[
-                  'Real-time Analytics',
-                  'Voice Synthesis',
-                  'AI Integration',
-                ].map((item, i) => (
-                  <motion.div
-                    key={i}
-                    animate={{
-                      rotate: [0, 2, -2, 0],
-                    }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                    className="p-4 rounded-lg bg-slate-700/30 border border-purple-500/30 text-purple-200 font-mono text-sm font-semibold"
-                  >
-                    ✨ {item}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+            <span>Get Started Now</span>
+            <Sparkles className="w-5 h-5" />
+          </Link>
         </motion.div>
       </motion.div>
     </main>

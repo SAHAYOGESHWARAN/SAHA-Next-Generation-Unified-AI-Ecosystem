@@ -13,41 +13,39 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Email validation
+    // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
-        { error: 'Invalid email address' },
+        { error: 'Invalid email format' },
         { status: 400 }
       );
     }
 
-    // Mock login validation
-    // In production, this will check against database and hash password
+    // For demo purposes, accept any valid email/password
+    // In production, verify against database
     if (password.length < 6) {
       return NextResponse.json(
-        { error: 'Invalid credentials' },
-        { status: 401 }
+        { error: 'Password must be at least 6 characters' },
+        { status: 400 }
       );
     }
 
-    // For demo purposes, any valid email/password combo works
-    console.log('Login request:', { email });
+    // Mock successful login
+    const user = {
+      id: Date.now().toString(),
+      email,
+      name: email.split('@')[0],
+      createdAt: new Date(),
+    };
 
-    // Mock token generation
-    const mockToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+    const token = `token_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-    // Return success response
     return NextResponse.json(
       {
         success: true,
-        message: 'Login successful',
-        token: mockToken,
-        user: {
-          id: Math.random().toString(36).substr(2, 9),
-          email,
-          name: 'User',
-        },
+        user,
+        token,
       },
       { status: 200 }
     );

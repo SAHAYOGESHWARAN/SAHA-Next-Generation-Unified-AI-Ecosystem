@@ -3,26 +3,26 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, password } = body;
+    const { name, email, password, confirmPassword } = body;
 
     // Validation
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !confirmPassword) {
       return NextResponse.json(
         { error: 'All fields are required' },
         { status: 400 }
       );
     }
 
-    // Email validation
+    // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
-        { error: 'Invalid email address' },
+        { error: 'Invalid email format' },
         { status: 400 }
       );
     }
 
-    // Password validation (at least 6 characters)
+    // Password validation
     if (password.length < 6) {
       return NextResponse.json(
         { error: 'Password must be at least 6 characters' },
@@ -30,21 +30,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Mock successful signup
-    // In production, this will connect to database
-    console.log('Signup request:', { name, email });
+    if (password !== confirmPassword) {
+      return NextResponse.json(
+        { error: 'Passwords do not match' },
+        { status: 400 }
+      );
+    }
 
-    // Return success response
+    // Mock user creation
+    const user = {
+      id: Date.now().toString(),
+      name,
+      email,
+      createdAt: new Date(),
+    };
+
+    const token = `token_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
     return NextResponse.json(
       {
         success: true,
-        message: 'Account created successfully',
-        user: {
-          id: Math.random().toString(36).substr(2, 9),
-          name,
-          email,
-          createdAt: new Date().toISOString(),
-        },
+        user,
+        token,
       },
       { status: 201 }
     );
