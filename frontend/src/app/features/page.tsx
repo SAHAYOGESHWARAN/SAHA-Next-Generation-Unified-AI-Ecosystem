@@ -1,282 +1,160 @@
 'use client';
 
-import { useState } from 'react';
-import Navigation from '@/components/Navigation';
-
-const features = [
-  {
-    id: 1,
-    title: 'Powerful Features',
-    description: 'Everything you need to harness the full power of AI',
-    icon: '⚡',
-    details: [
-      'Advanced model switching and comparison',
-      'Real-time response analysis',
-      'Custom prompt engineering tools',
-      'Batch processing capabilities',
-      'API rate limit management',
-    ],
-  },
-  {
-    id: 2,
-    title: '18 AI & Tech Categories',
-    description: 'Comprehensive coverage across all major AI domains',
-    icon: '🎯',
-    details: [
-      'Image generation and design',
-      'Video creation and production',
-      'LLM and language models',
-      'AI agents and automation',
-      'DevOps and infrastructure',
-      'Data engineering and analytics',
-      'Databases and storage',
-      'Cybersecurity solutions',
-      'Web development tools',
-      'Computer vision applications',
-    ],
-  },
-  {
-    id: 3,
-    title: 'Unified AI Workspace',
-    description: 'Switch between models, compare responses, and manage projects',
-    icon: '🌐',
-    details: [
-      'Multi-model integration',
-      'Side-by-side response comparison',
-      'Project management dashboard',
-      'Workspace organization',
-      'Team collaboration features',
-      'Version control for prompts',
-      'Activity tracking and history',
-    ],
-  },
-  {
-    id: 4,
-    title: 'Advanced Search',
-    description: 'Semantic search across tools, models, and documentation',
-    icon: '🔍',
-    details: [
-      'Natural language search queries',
-      'Semantic indexing of tools',
-      'Full documentation search',
-      'Research paper database',
-      'Model comparison search',
-      'Real-time results',
-      'Smart filtering and sorting',
-    ],
-  },
-  {
-    id: 5,
-    title: 'Secure Integration',
-    description: 'Connect your favorite AI providers and manage credentials safely',
-    icon: '🔐',
-    details: [
-      'OAuth 2.0 authentication',
-      'End-to-end encryption',
-      'API key management',
-      'Secure credential storage',
-      'Role-based access control',
-      'Audit logs and compliance',
-      'Multi-factor authentication',
-    ],
-  },
-  {
-    id: 6,
-    title: 'Real-Time Collaboration',
-    description: 'Save projects, share insights, and collaborate with your team',
-    icon: '👥',
-    details: [
-      'Real-time co-editing',
-      'Instant notifications',
-      'Comment and feedback system',
-      'Shared workspaces',
-      'Team permissions',
-      'Activity streams',
-      'Integration with popular tools',
-    ],
-  },
-  {
-    id: 7,
-    title: 'Complete Analytics',
-    description: 'Track usage, monitor AI requests, and optimize your workflow',
-    icon: '📊',
-    details: [
-      'Usage statistics dashboard',
-      'Cost analysis and tracking',
-      'Model performance metrics',
-      'Request rate monitoring',
-      'Custom reports generation',
-      'Predictive analytics',
-      'Export functionality',
-    ],
-  },
-  {
-    id: 8,
-    title: 'Enterprise Ready',
-    description: 'Built for scalability and reliability at any scale',
-    icon: '🏢',
-    details: [
-      '99.99% uptime SLA',
-      'Auto-scaling infrastructure',
-      'Disaster recovery',
-      'Load balancing',
-      'CDN integration',
-      'DDoS protection',
-      'Enterprise support',
-    ],
-  },
-];
+import { motion } from 'framer-motion';
+import {
+  Zap,
+  Shield,
+  Rocket,
+  TrendingUp,
+  Gauge,
+  Database,
+  Cloud,
+  Lock,
+  Cpu,
+  Code,
+  Layers,
+  BarChart3,
+} from 'lucide-react';
+import PageWrapper from '@/components/PageWrapper';
 
 export default function FeaturesPage() {
-  const [selectedFeature, setSelectedFeature] = useState(1);
+  const features = [
+    {
+      icon: <Rocket className="w-8 h-8" />,
+      title: 'Advanced AI Integration',
+      description: 'Seamless integration with cutting-edge AI models and APIs for maximum performance and flexibility.',
+      color: 'cyan',
+    },
+    {
+      icon: <Shield className="w-8 h-8" />,
+      title: 'Enterprise Security',
+      description: 'Bank-level encryption, compliance standards, and comprehensive security measures.',
+      color: 'blue',
+    },
+    {
+      icon: <TrendingUp className="w-8 h-8" />,
+      title: 'Real-time Analytics',
+      description: 'Monitor performance metrics and insights with advanced dashboards and reporting.',
+      color: 'purple',
+    },
+    {
+      icon: <Gauge className="w-8 h-8" />,
+      title: 'Lightning Fast',
+      description: 'Optimized performance with 60fps animations and sub-100ms response times.',
+      color: 'cyan',
+    },
+    {
+      icon: <Database className="w-8 h-8" />,
+      title: 'Cloud Native',
+      description: 'Scalable infrastructure built for enterprise needs and global deployment.',
+      color: 'teal',
+    },
+    {
+      icon: <Cloud className="w-8 h-8" />,
+      title: 'Multi-Cloud Support',
+      description: 'Deploy anywhere with support for AWS, Azure, Google Cloud, and more.',
+      color: 'blue',
+    },
+    {
+      icon: <Lock className="w-8 h-8" />,
+      title: 'Zero Trust Security',
+      description: 'Implement zero-trust architecture with advanced authentication and authorization.',
+      color: 'purple',
+    },
+    {
+      icon: <Cpu className="w-8 h-8" />,
+      title: 'AI-Powered',
+      description: 'Powered by state-of-the-art AI technology and machine learning models.',
+      color: 'cyan',
+    },
+    {
+      icon: <Code className="w-8 h-8" />,
+      title: 'Developer Friendly',
+      description: 'Comprehensive APIs, SDKs, and documentation for seamless integration.',
+      color: 'orange',
+    },
+    {
+      icon: <Layers className="w-8 h-8" />,
+      title: 'Modular Architecture',
+      description: 'Flexible, modular design allows customization and scalability.',
+      color: 'purple',
+    },
+    {
+      icon: <BarChart3 className="w-8 h-8" />,
+      title: 'Advanced Reporting',
+      description: 'Detailed insights and analytics with customizable reports and dashboards.',
+      color: 'cyan',
+    },
+    {
+      icon: <Zap className="w-8 h-8" />,
+      title: 'High Availability',
+      description: 'Redundancy and failover mechanisms ensure 99.99% uptime.',
+      color: 'blue',
+    },
+  ];
 
-  const selectedFeatureData = features.find((f) => f.id === selectedFeature);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-20 px-4 relative overflow-hidden">
-      <Navigation />
-      {/* Animated background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-purple-500/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-gradient-to-br from-pink-500/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-20 mt-8">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Powerful Features
-            </span>
+    <PageWrapper>
+      <div className="container-xl">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-16 pt-10 text-center"
+        >
+          <h1 className="gradient-text mb-4 text-glow">
+            Advanced Features
           </h1>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            Everything you need to harness the full power of AI with 18+ categories, unified workspace, and enterprise-grade features
+          <p className="text-cyan-300 max-w-2xl mx-auto">
+            Discover the powerful capabilities that make SAHA NEXUS AI the leading AI ecosystem platform.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {/* Left: Feature List */}
-          <div className="space-y-3">
-            {features.map((feature) => (
-              <button
-                key={feature.id}
-                onClick={() => setSelectedFeature(feature.id)}
-                className={`w-full text-left p-4 rounded-lg border transition duration-300 font-mono text-sm ${selectedFeature === feature.id
-                  ? 'bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border-cyan-400/50 shadow-lg shadow-cyan-400/10'
-                  : 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/70 hover:bg-slate-800/70'
-                  }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{feature.icon}</span>
-                  <div>
-                    <div className="font-bold text-white">{feature.title}</div>
-                    <div className="text-xs text-slate-400">{feature.description.substring(0, 40)}...</div>
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
-
-          {/* Right: Feature Details */}
-          {selectedFeatureData && (
-            <div className="relative group h-fit">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-500 animate-pulse"></div>
-
-              <div className="relative bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8">
-                <div className="mb-6">
-                  <div className="text-6xl mb-4">{selectedFeatureData.icon}</div>
-                  <h2 className="text-3xl font-bold text-white mb-2">{selectedFeatureData.title}</h2>
-                  <p className="text-slate-400">{selectedFeatureData.description}</p>
-                </div>
-
-                <div className="space-y-3">
-                  <p className="text-xs uppercase tracking-wider text-slate-500 font-mono">Key Benefits</p>
-                  <div className="space-y-2">
-                    {selectedFeatureData.details.map((detail, idx) => (
-                      <div key={idx} className="flex items-start gap-3 group/item">
-                        <div className="mt-1.5 w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full flex-shrink-0 group-hover/item:shadow-lg group-hover/item:shadow-cyan-400/50 transition"></div>
-                        <span className="text-slate-300 text-sm">{detail}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <button className="mt-6 w-full px-4 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 text-black font-bold rounded-lg transition duration-300 font-mono uppercase text-sm">
-                  Learn More →
-                </button>
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {features.map((feature, i) => (
+            <motion.div
+              key={i}
+              variants={itemVariants}
+              className="tech-card group h-full"
+              whileHover={{ y: -8, scale: 1.02 }}
+            >
+              <div className="text-cyan-400 mb-4 group-hover:text-blue-300 transition transform group-hover:scale-110">
+                {feature.icon}
               </div>
-            </div>
-          )}
-        </div>
-
-        {/* Categories Grid */}
-        <div className="mt-20">
-          <div className="mb-10">
-            <h2 className="text-4xl font-bold text-white mb-3">
-              <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                18 AI & Tech Categories
-              </span>
-            </h2>
-            <p className="text-slate-400">Comprehensive coverage across all major AI domains</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { title: 'AI Image & Design', icon: '🖼️' },
-              { title: 'AI Video Generation', icon: '🎬' },
-              { title: 'AI Agents', icon: '🤖' },
-              { title: 'LLM Tools', icon: '📚' },
-              { title: 'Developer Tools', icon: '👨‍💻' },
-              { title: 'Web & Frontend', icon: '🌐' },
-              { title: 'Self-Hosted Systems', icon: '🖥️' },
-              { title: 'Data Engineering', icon: '📊' },
-              { title: 'Databases', icon: '🗄️' },
-              { title: 'Cybersecurity', icon: '🔒' },
-              { title: 'DevOps & Infrastructure', icon: '⚙️' },
-              { title: 'Web Scraping', icon: '🕷️' },
-              { title: 'Productivity', icon: '⚡' },
-              { title: 'Learning & Interview', icon: '🎓' },
-              { title: 'Local & Private AI', icon: '🔐' },
-              { title: 'AI Research', icon: '🔬' },
-              { title: 'Computer Vision', icon: '👁️' },
-              { title: 'Open-Source Models', icon: '🌍' },
-            ].map((cat, idx) => (
-              <div
-                key={idx}
-                className="relative group cursor-pointer"
-              >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-600 to-slate-700 rounded-lg blur opacity-20 group-hover:opacity-40 transition"></div>
-                <div className="relative bg-slate-800/50 backdrop-blur border border-slate-700/50 rounded-lg p-4 hover:border-slate-600/70 transition h-24 flex flex-col justify-center items-center text-center">
-                  <div className="text-3xl mb-2">{cat.icon}</div>
-                  <div className="text-sm font-bold text-white">{cat.title}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA Section */}
-        <div className="mt-20 relative group">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-500"></div>
-
-          <div className="relative bg-gradient-to-r from-slate-900/90 to-slate-800/90 backdrop-blur border border-slate-700/50 rounded-2xl p-12 text-center">
-            <h3 className="text-3xl font-bold text-white mb-4">Ready to Transform Your AI Workflow?</h3>
-            <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
-              Join thousands of developers and teams using SAHA NEXUS AI to streamline their AI development
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-black font-bold rounded-lg transition duration-300 font-mono uppercase">
-                Get Started Free
-              </button>
-              <button className="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700/50 text-white font-bold rounded-lg transition duration-300 font-mono uppercase">
-                View Pricing
-              </button>
-            </div>
-          </div>
-        </div>
+              <h3 className="text-white font-bold text-lg mb-2 group-hover:text-cyan-300 transition">
+                {feature.title}
+              </h3>
+              <p className="text-cyan-300/70 text-sm">
+                {feature.description}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-    </div>
+    </PageWrapper>
   );
 }
