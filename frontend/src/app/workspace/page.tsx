@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Plus, Settings, Share2, Trash2, MoreHorizontal } from 'lucide-react';
+import { Plus, Settings, Share2, MoreHorizontal } from 'lucide-react';
 import PageWrapper from '@/components/PageWrapper';
 
 export default function WorkspacePage() {
@@ -133,8 +133,8 @@ export default function WorkspacePage() {
                     <span className="text-cyan-300/70 text-sm">members</span>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${project.status === 'Active'
-                      ? 'bg-green-500/20 text-green-300'
-                      : 'bg-blue-500/20 text-blue-300'
+                    ? 'bg-green-500/20 text-green-300'
+                    : 'bg-blue-500/20 text-blue-300'
                     }`}>
                     {project.status}
                   </span>
